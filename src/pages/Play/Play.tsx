@@ -1,8 +1,11 @@
+import Keyboard from "../../components/Keyboard";
+import { PlayProvider } from "../../providers/Play/Play.provider";
+
 const Play = () => {
   return (
-    <div>
-      Play
-    </div>
+    <PlayProvider word="GRANOLA">
+      <Keyboard />
+    </PlayProvider>
   )
 }
 
