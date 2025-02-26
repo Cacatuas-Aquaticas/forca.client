@@ -1,0 +1,39 @@
+import { useEffect, useState } from "react"
+import usePlayContext from "../../hooks/usePlayContext"
+import styles from './EndgameModal.module.css'
+
+const EndgameModal = () => {
+  const { guessedWord, lostGame, word, pressedKeys } = usePlayContext()
+  const [showModal, setShowModal] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (guessedWord || lostGame)
+      setShowModal(true)
+  }, [guessedWord, lostGame])
+
+  return showModal ? (
+    <div className={styles.wrapper}>
+      <div className={styles.backdrop} onClick={() => setShowModal(false)} />
+      <div className={styles.modal}>
+        <button className={styles.closeButton} onClick={() => setShowModal(false)}>+</button>
+        <h1 className={styles.title}>{guessedWord ? 'Parabéns!' : ''}{lostGame ? 'Você errou' : ''}</h1>
+        <p>
+          A palavra era <strong>{word}</strong>
+        </p>
+
+        <div className={styles.history}>
+          {pressedKeys.map(pressedKey => (
+            <div className={`${styles.choice} ${styles[`${pressedKey.correct}`]}`} />
+          ))}
+        </div>
+
+        <button
+          className={styles.continue}
+          onClick={() => setShowModal(false)}
+        >Continuar</button>
+      </div>
+    </div>
+  ) : <></>
+}
+
+export default EndgameModal
