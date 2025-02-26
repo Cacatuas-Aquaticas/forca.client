@@ -1,0 +1,18 @@
+import usePlayContext from "../../hooks/usePlayContext"
+import styles from './Word.module.css'
+
+const Word = () => {
+  const { word, pressedKeys } = usePlayContext();
+
+  return word.length && (
+    <section className={styles.word}>
+      {word.split('').map((letter, i) => (
+        <div key={i} className={styles.letter}>
+          {pressedKeys.some(pressedKey => pressedKey.char === letter) && letter }
+        </div>
+      ))}
+    </section>
+  )
+}
+
+export default Word

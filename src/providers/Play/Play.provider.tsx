@@ -3,7 +3,8 @@ import { PlayContextValues, PressedKeys } from './Play.provider.types';
 
 const PlayContext = createContext<PlayContextValues>({
   pressedKeys: [],
-  pushKey: () => { }
+  pushKey: () => { },
+  word: ''
 });
 
 export const PlayProvider = ({
@@ -26,6 +27,7 @@ export const PlayProvider = ({
     <PlayContext.Provider value={{
       pressedKeys,
       pushKey,
+      word,
     }}>
       {children}
     </PlayContext.Provider>
