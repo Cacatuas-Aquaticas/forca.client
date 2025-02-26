@@ -1,0 +1,10 @@
+.wordHangman {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container {
+  max-width: 690px;
+  margin: 0 auto;
+}

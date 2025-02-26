@@ -1,14 +1,26 @@
 .keyboard {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
+}
+
+@media (min-width: 640px) {
+  .keyboard {
+    gap: 20px;
+  }
 }
 
 .row {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .row {
+    gap: 10px;
+  }
 }
 
 .key {
@@ -17,14 +29,22 @@
   justify-content: center;
   text-align: center;
   padding: 0;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 35px;
   border-radius: 5px;
   border: 1px solid #ccc;
   color: #ccc;
   cursor: pointer;
   background-color: transparent;
   font-size: 1rem;
+}
+
+@media (min-width: 640px) {
+  .key {
+    height: 60px;
+    width: 60px;
+    font-size: 1.2rem;
+  }
 }
 
 .key:disabled {
