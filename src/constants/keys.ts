@@ -1,4 +1,3 @@
-import { Key } from "../types/global"
 
 const KEYS = [
   'Q',
@@ -27,6 +26,6 @@ const KEYS = [
   'B',
   'N',
   'M',
-] as Array<Key>
+] as Array<CharKey>
 
 export default KEYS
