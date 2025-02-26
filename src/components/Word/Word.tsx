@@ -1,4 +1,5 @@
 import usePlayContext from "../../hooks/usePlayContext"
+import normalize from "../../utils/normalize";
 import styles from './Word.module.css'
 
 const Word = () => {
@@ -8,7 +9,7 @@ const Word = () => {
     <section className={styles.word}>
       {word.split('').map((letter, i) => (
         <div key={i} className={styles.letter}>
-          {pressedKeys.some(pressedKey => pressedKey.char === letter) && letter }
+          {pressedKeys.some(pressedKey => pressedKey.char === normalize(letter)) && letter }
         </div>
       ))}
     </section>

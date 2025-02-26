@@ -1,5 +1,6 @@
 import { createContext, PropsWithChildren, useState } from 'react';
 import { PlayContextValues, PressedKeys } from './Play.provider.types';
+import normalize from '../../utils/normalize';
 
 const PlayContext = createContext<PlayContextValues>({
   pressedKeys: [],
@@ -17,8 +18,7 @@ export const PlayProvider = ({
   const pushKey = (newKey: CharKey) => {
     setPressedKeys(prevPressedKeys => {
       if (prevPressedKeys.some(key => key.char === newKey)) return prevPressedKeys
-      let correct = true
-      if (!word.includes(newKey)) correct = false
+      let correct = normalize(word).includes(newKey)
       return [...prevPressedKeys, { char: newKey, correct }]
     })
   }
