@@ -8,7 +8,7 @@ import EndgameModal from "../../components/EndgameModal";
 
 const Play = () => {
   return (
-    <PlayProvider word="AÇÚCAR">
+    <PlayProvider word="ESPERMATOZOIDE">
       <main className={styles.container}>
         <EndgameModal />
         <Timer />
