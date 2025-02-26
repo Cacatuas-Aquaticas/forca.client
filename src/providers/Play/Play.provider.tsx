@@ -24,7 +24,6 @@ export const PlayProvider = ({
   word,
   children
 }: PropsWithChildren<{ word: string }>) => {
-
   const [pressedKeys, setPressedKeys] = useState<PressedKeys>(savedData?.pressedKeys || [])
   const [errors, setErrors] = useState<number>(savedData?.errors || 0)
   const [guessedWord, setGuessedWord] = useState<boolean>(savedData?.guessedWord || false)
@@ -47,8 +46,8 @@ export const PlayProvider = ({
 
   // Validate Victory
   useEffect(() => {
-    const lettersToGuess = new Set(normalize(word)).size;
-    const guessedLetters = pressedKeys.filter(k => k.correct).length
+    const lettersToGuess = new Set(normalize(word).split('-').join('')).size;
+    const guessedLetters = pressedKeys.filter(k => k.correct && k.char !== '-').length
     if (lettersToGuess === guessedLetters) setGuessedWord(true)
     saveToLocalStorage();
   }, [pressedKeys]);
@@ -65,6 +64,12 @@ export const PlayProvider = ({
     const errorsQuantity = pressedKeys.filter(k => !k.correct).length
     setErrors(errorsQuantity)
   }, [pressedKeys])
+
+  // Handles hyphen
+  useEffect(() => {
+    if (normalize(word).includes('-') && !pressedKeys.some(k => k.char === '-'))
+      pushKey('-')
+  }, [word])
 
   return (
     <PlayContext.Provider value={{

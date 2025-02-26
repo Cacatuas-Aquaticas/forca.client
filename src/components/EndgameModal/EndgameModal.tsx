@@ -22,8 +22,8 @@ const EndgameModal = () => {
         </p>
 
         <div className={styles.history}>
-          {pressedKeys.map(pressedKey => (
-            <div className={`${styles.choice} ${styles[`${pressedKey.correct}`]}`} />
+          {pressedKeys.filter(k => k.char !== '-').map(pressedKey => (
+            <div key={pressedKey.char} className={`${styles.choice} ${styles[`${pressedKey.correct}`]}`} />
           ))}
         </div>
 
