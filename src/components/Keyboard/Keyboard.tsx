@@ -16,7 +16,7 @@ const Keyboard = () => {
 
   const handleKeyPress = (event: KeyboardEvent) => {
     const key = normalize(event.key)
-    if (key >= "A" && key <= "Z") handleNewKey(key as CharKey)
+    if (key >= "A" && key <= "Z" && key.length === 1) handleNewKey(key as CharKey)
   };
 
   useEffect(() => {
