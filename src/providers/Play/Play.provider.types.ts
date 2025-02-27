@@ -5,9 +5,5 @@ export type PlayContextValues = {
   errors: number
   guessedWord: boolean
   lostGame: boolean
+  seconds: number
 }
-
-export type PressedKeys = Array<{
-  char: CharKey,
-  correct: boolean
-}>

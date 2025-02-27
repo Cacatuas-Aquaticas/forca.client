@@ -22,6 +22,6 @@
   font-weight: 600;
 }
 
-.letter[data-hideBorder="true"] {
+.letter[data-hideborder="true"] {
   border-bottom: 0;
 }

@@ -8,7 +8,7 @@ const Word = () => {
   return word.length && (
     <section className={styles.word}>
       {word.split('').map((letter, i) => (
-        <div key={i} className={styles.letter} data-hideBorder={letter === '-'}>
+        <div key={i} className={styles.letter} data-hideborder={letter === '-'}>
           {pressedKeys.some(pressedKey => pressedKey.char === normalize(letter)) && letter}
         </div>
       ))}
