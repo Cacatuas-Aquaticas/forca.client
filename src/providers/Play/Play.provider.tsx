@@ -1,31 +1,29 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
-import { PlayContextValues, PressedKeys } from './Play.provider.types';
+import { PlayContextValues } from './Play.provider.types';
 import normalize from '../../utils/normalize';
-
-
-const getCurrentDate = () => {
-  const date = new Date();
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-};
-
-const currentDate = getCurrentDate();
-const savedData = JSON.parse(localStorage.getItem(`game-${currentDate}`) || '{}')
+import useLocalStorageGame from '../../hooks/useLocalStorageGame';
+import useDate from '../../hooks/useDate';
 
 const PlayContext = createContext<PlayContextValues>({
-  pressedKeys: savedData?.pressedKeys || [],
+  pressedKeys: [],
   pushKey: () => { },
   word: '',
-  errors: savedData?.errors || 0,
-  guessedWord: savedData?.guessedWord || false,
-  lostGame: savedData?.guessedWord || false,
+  errors: 0,
+  guessedWord: false,
+  lostGame: false,
+  seconds: 0,
 });
 
 export const PlayProvider = ({
   word,
   children
 }: PropsWithChildren<{ word: string }>) => {
+  const savedData = useLocalStorageGame();
+  const date = useDate()
+
+  const [seconds, setSeconds] = useState<number>(savedData?.seconds || 0);
   const [pressedKeys, setPressedKeys] = useState<PressedKeys>(savedData?.pressedKeys || [])
-  const [errors, setErrors] = useState<number>(savedData?.errors || 0)
+  const [errors, setErrors] = useState<number>(0)
   const [guessedWord, setGuessedWord] = useState<boolean>(savedData?.guessedWord || false)
   const [lostGame, setLostGame] = useState<boolean>(savedData?.guessedWord || false)
 
@@ -33,9 +31,11 @@ export const PlayProvider = ({
     const gameData = {
       pressedKeys,
       guessedWord,
-      lostGame
-    };
-    localStorage.setItem(`game-${currentDate}`, JSON.stringify(gameData));
+      lostGame,
+      word,
+      seconds,
+    } as GameData;
+    localStorage.setItem(`game-${date}`, JSON.stringify(gameData));
   };
 
   const pushKey = (newKey: CharKey) => {
@@ -44,13 +44,24 @@ export const PlayProvider = ({
     setPressedKeys(prevPressedKeys => [...prevPressedKeys, { char: newKey, correct }])
   }
 
+  // Handles timer
+  useEffect(() => {
+    if (guessedWord || lostGame) return;
+
+    const interval = setInterval(() => {
+      setSeconds((prev) => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [guessedWord, lostGame]);
+
   // Validate Victory
   useEffect(() => {
     const lettersToGuess = new Set(normalize(word).split('-').join('')).size;
     const guessedLetters = pressedKeys.filter(k => k.correct && k.char !== '-').length
     if (lettersToGuess === guessedLetters) setGuessedWord(true)
     saveToLocalStorage();
-  }, [pressedKeys]);
+  }, [pressedKeys])
 
   // Validate Lost
   useEffect(() => {
@@ -79,6 +90,7 @@ export const PlayProvider = ({
       errors,
       guessedWord,
       lostGame,
+      seconds,
     }}>
       {children}
     </PlayContext.Provider>
