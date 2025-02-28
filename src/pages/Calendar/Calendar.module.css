@@ -1,0 +1,70 @@
+/* pages/Calendar/Calendar.module.css */
+.calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+  }
+  
+  .header button {
+    background: none;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  
+  .daysOfWeek, .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    text-align: center;
+  }
+  
+  .daysOfWeek div {
+    font-weight: bold;
+    padding: 10px 0;
+  }
+  
+  .days div {
+    padding: 10px 0;
+    cursor: pointer;
+    border: 1px solid #ccc;
+  }
+  
+  .days div:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .days div.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+    background-color: #f9f9f9;
+  }
+  
+  .days div.green {
+    background-color: #d4edda;
+  }
+  
+  .days div.red {
+    background-color: #f8d7da;
+  }
+  
+  .days div.yellow {
+    background-color: #fff3cd;
+  }
+  
+  .empty {
+    border: none;
+  }

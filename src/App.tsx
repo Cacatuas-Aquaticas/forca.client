@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Play from "./pages/Play";
 import Home from "./pages/Home";
+import Calendar from "./pages/Calendar/Calendar"
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
         <Route path="/play/:date" element={<Play />} />
         <Route path="/daily" element={<Play />} />
         <Route path="/" element={<Home />} />
+        <Route path="/calendar" element={<Calendar/>} />
       </Routes>
     </BrowserRouter>
   );
