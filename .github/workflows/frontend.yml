@@ -30,12 +30,13 @@ jobs:
       # Etapa 4: Construir as imagens e iniciar o ambiente com Docker Compose
       - name: Build and start Docker containers
         run: |
-          docker-compose up --build -d  # Isso garante que o container esteja atualizado
+          docker-compose up --build -d 
 
       # Etapa 5: Rodar os testes dentro do container Docker
       - name: Run tests in Docker container
         run: |
-          docker-compose exec frontend npm run test  # 'frontend' é o nome do serviço no docker-compose
+          docker-compose exec -T frontend npm run test  
+
 
       # Etapa 6: Opcionalmente, pode ser configurado um deploy (se necessário)
       # - name: Deploy to production
