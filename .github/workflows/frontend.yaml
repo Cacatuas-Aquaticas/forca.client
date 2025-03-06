@@ -31,14 +31,14 @@ jobs:
       # Etapa 4: Puxa as últimas imagens e construa os containers
       - name: Pull and Build Docker containers
         run: |
-          docker-compose pull  # Garante que as imagens mais recentes sejam baixadas
-          docker-compose up --build --abort-on-container-exit  # Não usa o -d para ver os logs ao vivo
+          docker-compose pull  
+          docker-compose up --build --abort-on-container-exit 
           docker-compose logs
 
       # Etapa 5: Rodar os testes dentro do container Docker
       - name: Run tests in Docker container
         run: |
-          docker-compose run --rm test  # Rodar o serviço de testes configurado no docker-compose
+          docker-compose run --rm test
 
       # Etapa 6: (Opcional) Deploy, caso necessário
       # - name: Deploy to production
