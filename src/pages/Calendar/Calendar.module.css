@@ -62,6 +62,9 @@
 
 .day:not(:disabled):not(.completed):not(.lost):not(.inProgress):hover {
   background-color: #3b3b3b;
+}
+
+.day:not(:disabled):hover {
   filter: brightness(110%);
 }
 
