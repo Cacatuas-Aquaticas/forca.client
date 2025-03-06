@@ -9,10 +9,9 @@
   font-family: Arial, sans-serif;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .calendar {
-    max-width: 500px;
-    margin-top: 10vh;
+    max-width: 690px;
   }
 }
 
@@ -21,7 +20,14 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 1rem;
   font-size: 1.2em;
+}
+
+@media (min-width: 768px) {
+  .header {
+    padding: 0 20px;
+  }
 }
 
 .header button {
@@ -29,13 +35,14 @@
   border: none;
   font-size: 1em;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 .daysOfWeek,
 .days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
+  gap: 10px;
   width: 100%;
   text-align: center;
 }
@@ -50,7 +57,7 @@
 }
 
 .day {
-  padding: 10px 20px;
+  padding: 15px 20px;
   border: 0;
   border-radius: 5px;
   cursor: pointer;
@@ -58,6 +65,12 @@
   font-size: 1rem;
   font-weight: 600;
   background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .day {
+    padding: 4px 5px;
+  }
 }
 
 .day:not(:disabled):not(.completed):not(.lost):not(.inProgress):hover {

@@ -24,14 +24,14 @@
   width: 85vw;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .modal {
     width: unset;
     min-width: 370px;
   }
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .modal {
     min-width: 500px;
   }
