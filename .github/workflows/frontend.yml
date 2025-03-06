@@ -33,6 +33,7 @@ jobs:
         run: |
           docker-compose pull  # Garante que as imagens mais recentes sejam baixadas
           docker-compose up --build --abort-on-container-exit  # Não usa o -d para ver os logs ao vivo
+          docker-compose logs
 
       # Etapa 5: Rodar os testes dentro do container Docker
       - name: Run tests in Docker container
