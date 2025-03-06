@@ -16,7 +16,7 @@ const EndgameModal = () => {
       <div className={styles.backdrop} onClick={() => setShowModal(false)} />
       <div className={styles.modal}>
         <button className={styles.closeButton} onClick={() => setShowModal(false)}>+</button>
-        <h1 className={styles.title}>{guessedWord ? 'Parabéns!' : ''}{lostGame ? 'Você errou' : ''}</h1>
+        <h1 className={styles.title}>{guessedWord ? 'Parabéns!' : lostGame ? 'Você errou' : ''}</h1>
         <p>
           A palavra era <strong>{word}</strong>
         </p>

@@ -1,70 +1,88 @@
-/* pages/Calendar/Calendar.module.css */
 .calendar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+@media (min-width: 640px) {
+  .calendar {
+    max-width: 500px;
+    margin-top: 10vh;
   }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-  }
-  
-  .header button {
-    background: none;
-    border: none;
-    font-size: 1em;
-    cursor: pointer;
-  }
-  
-  .daysOfWeek, .days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    width: 100%;
-    text-align: center;
-  }
-  
-  .daysOfWeek div {
-    font-weight: bold;
-    padding: 10px 0;
-  }
-  
-  .days div {
-    padding: 10px 0;
-    cursor: pointer;
-    border: 1px solid #ccc;
-  }
-  
-  .days div:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .days div.disabled {
-    color: #ccc;
-    cursor: not-allowed;
-    background-color: #f9f9f9;
-  }
-  
-  .days div.green {
-    background-color: #d4edda;
-  }
-  
-  .days div.red {
-    background-color: #f8d7da;
-  }
-  
-  .days div.yellow {
-    background-color: #fff3cd;
-  }
-  
-  .empty {
-    border: none;
-  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 1.2em;
+}
+
+.header button {
+  background: none;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.daysOfWeek,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  width: 100%;
+  text-align: center;
+}
+
+.daysOfWeek {
+  gap: 0;
+}
+
+.daysOfWeek div {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.day {
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .2s ease-out;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: transparent;
+}
+
+.day:not(:disabled):not(.completed):not(.lost):not(.inProgress):hover {
+  background-color: #3b3b3b;
+  filter: brightness(110%);
+}
+
+.day:disabled {
+  opacity: .2;
+  cursor: default;
+  background-color: #222;
+}
+
+.day.completed {
+  background-color: green;
+}
+
+.day.lost {
+  background-color: #ff2a2a;
+}
+
+.day.inProgress {
+  background-color: #ffc60a;
+}
+
+.empty {
+  border: none;
+}

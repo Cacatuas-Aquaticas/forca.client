@@ -70,6 +70,10 @@ export const PlayProvider = ({
     saveToLocalStorage();
   }, [pressedKeys])
 
+  useEffect(() => {
+    saveToLocalStorage()
+  }, [lostGame, guessedWord])
+
   // Track errors
   useEffect(() => {
     const errorsQuantity = pressedKeys.filter(k => !k.correct).length

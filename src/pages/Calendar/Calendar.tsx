@@ -1,8 +1,8 @@
-// pages/Calendar/Calendar.tsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { format, addMonths, subMonths, isBefore, isAfter } from 'date-fns';
 import styles from './Calendar.module.css';
+import translateMonth from '../../utils/translateMonth';
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -21,21 +21,21 @@ const Calendar = () => {
   };
 
   const handleNextMonth = () => {
-    setCurrentDate(addMonths(currentDate, 1));
+    setCurrentDate(prevDate => addMonths(prevDate, 1));
   };
 
   const handlePreviousMonth = () => {
-    setCurrentDate(subMonths(currentDate, 1));
+    setCurrentDate(prevDate => subMonths(prevDate, 1));
   };
 
   const getDayState = (day: number) => {
     const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
     const dateKey = format(date, 'yyyy-MM-dd');
-    const gameState = localStorage.getItem(`game-${dateKey}`);
+    const gameState = JSON.parse(localStorage.getItem(`game-${dateKey}`) || '{}') as GameData || {};
 
-    if (gameState === 'win') return 'green';
-    if (gameState === 'lose') return 'red';
-    if (gameState === 'inProgress') return 'yellow';
+    if (gameState?.guessedWord) return 'completed';
+    if (gameState?.lostGame) return 'lost';
+    if (gameState?.pressedKeys?.length) return 'inProgress';
     return 'default';
   };
 
@@ -43,11 +43,11 @@ const Calendar = () => {
     <div className={styles.calendar}>
       <div className={styles.header}>
         <button onClick={handlePreviousMonth}>Anterior</button>
-        <span>{format(currentDate, 'MMMM yyyy')}</span>
+        <span>{translateMonth(format(currentDate, 'MMMM yyyy'))}</span>
         <button onClick={handleNextMonth}>Próximo</button>
       </div>
       <div className={styles.daysOfWeek}>
-        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
+        {['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB'].map(day => (
           <div key={day}>{day}</div>
         ))}
       </div>
@@ -62,13 +62,14 @@ const Calendar = () => {
           const dayState = getDayState(day);
 
           return (
-            <div
+            <button
               key={day}
-              className={`${styles.day} ${isDisabled ? styles.disabled : ''} ${styles[dayState]}`}
+              className={`${styles.day} ${styles[dayState]}`}
               onClick={() => !isDisabled && handleDayClick(day)}
+              disabled={isDisabled}
             >
               {day}
-            </div>
+            </button>
           );
         })}
       </div>
