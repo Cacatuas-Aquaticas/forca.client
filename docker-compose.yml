@@ -16,6 +16,17 @@ services:
       interval: 30s
       retries: 3
 
+  test:
+    image: node:18  # Usando a imagem Node.js para os testes
+    container_name: forca-client-test
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: ["sh", "-c", "npm install && npm run test"]  # Rodar o npm install e depois os testes
+    networks:
+      - app-network
+    restart: "no"  # Não reiniciar o contêiner após os testes
+
 networks:
   app-network:
     driver: bridge
