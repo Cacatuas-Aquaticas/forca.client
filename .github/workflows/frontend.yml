@@ -35,7 +35,7 @@ jobs:
       # Etapa 5: Rodar os testes dentro do container Docker
       - name: Run tests in Docker container
         run: |
-          docker-compose run --rm forca-client npm run test  # 'forca-client' é o nome do serviço no docker-compose
+          docker-compose run --rm frontend npm run test  # 'frontend' é o nome do serviço no docker-compose
 
       # Etapa 6: Opcionalmente, pode ser configurado um deploy (se necessário)
       # - name: Deploy to production
