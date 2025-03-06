@@ -1,0 +1,37 @@
+name: Frontend CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Etapa 1: Verifica o código do repositório
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      # Etapa 2: Instala Docker e Docker Compose
+      - name: Set up Docker and Docker Compose
+        uses: docker/setup-buildx-action@v1
+
+      # Etapa 3: Construir as imagens e iniciar o ambiente com Docker Compose
+      - name: Build and start Docker containers
+        run: |
+          docker-compose up --build -d  # Isso garante que o container esteja atualizado
+
+      # Etapa 4: Rodar os testes dentro do container Docker
+      - name: Run tests in Docker container
+        run: |
+          docker-compose run --rm forca-client npm run test  # 'forca-client' é o nome do serviço no docker-compose
+
+      # Etapa 5: Opcionalmente, pode ser configurado um deploy (se necessário)
+      # - name: Deploy to production
+      #   run: |
+      #     # Comandos para deploy, como subir para o AWS, Azure, ou outro
