@@ -14,37 +14,46 @@ jobs:
 
     steps:
       # Etapa 1: Verifica o código do repositório
-      - name: Check out the repository
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Using Node.js
-        uses: actions/setup-node@v2
+      # Etapa 2: Configura Node.js (Garante que o ambiente tenha Node)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+          cache: 'npm'
 
+      # Etapa 3: Instala as dependências
+      - name: Install dependencies
+        run: npm install
 
-      # Etapa 2: Instala Docker e Docker Compose
-      - name: Set up Docker and Docker Compose
+      # Etapa 4: Instala Docker e Docker Compose
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      # Etapa 3: Instala o Docker Compose
+      # Etapa 5: Instala Docker Compose (se necessário)
       - name: Install Docker Compose
         run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
 
-      # Etapa 4: Puxa as últimas imagens e construa os containers
+      # Etapa 6: Puxa as imagens e constrói os containers
       - name: Pull and Build Docker containers
         run: |
           docker-compose pull  
-          docker-compose up --build --abort-on-container-exit 
-          docker-compose logs
+          docker-compose up --build -d  # Agora roda em segundo plano
 
-      # Etapa 5: Rodar os testes dentro do container Docker
+      # Etapa 7: Aguarda os serviços subirem antes de rodar os testes
+      - name: Wait for containers to be ready
+        run: sleep 15  
+
+      # Etapa 8: Rodar os testes dentro do container Docker
       - name: Run tests in Docker container
-        run: |
-          docker-compose run --rm test
+        run: docker-compose run --rm forca-client npm test  
 
-      # Etapa 6: (Opcional) Deploy, caso necessário
-      # - name: Deploy to production
-      #   run: |
-      #     # Comandos para deploy, como subir para o AWS, Azure, ou outro
+      # Etapa 9: Mostra logs dos containers (se falhar)
+      - name: Show logs in case of failure
+        if: failure()
+        run: docker-compose logs

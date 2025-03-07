@@ -17,7 +17,7 @@ services:
       retries: 3
 
   test:
-    image: node:18  # Usando a imagem Node.js para os testes
+    image: node:22  # Usando a imagem Node.js para os testes
     container_name: forca-client-test
     working_dir: /app
     volumes:
