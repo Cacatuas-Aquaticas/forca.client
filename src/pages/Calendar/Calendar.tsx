@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { format, addMonths, subMonths, isBefore, isAfter } from 'date-fns';
 import styles from './Calendar.module.css';
 import translateMonth from '../../utils/translateMonth';
-import Header from '../../components/Header';
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
