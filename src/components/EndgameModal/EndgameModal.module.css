@@ -24,14 +24,14 @@
   width: 85vw;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .modal {
     width: unset;
     min-width: 370px;
   }
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .modal {
     min-width: 500px;
   }
@@ -59,6 +59,7 @@
   flex-wrap: wrap;
   margin-top: 2rem;
   gap: 8px;
+  margin-bottom: 2.5rem;
 }
 
 .choice {
@@ -75,12 +76,19 @@
 }
 
 .continue {
+  display: block;
   padding: 1rem 2rem;
   border-radius: 5px;
   width: 100%;
   border: 0;
   background-color: #007bff;
   font-size: 1rem;
-  margin-top: 2.5rem;
+  margin-top: 1rem;
   cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+}
+
+.secondary {
+  background-color: #636363;
 }
