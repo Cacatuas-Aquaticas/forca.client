@@ -43,7 +43,7 @@ jobs:
       - name: Pull and Build Docker containers
         run: |
           docker-compose pull  
-          docker-compose up --build -d  # Agora roda em segundo plano
+          docker-compose up --build -d  
 
       # Etapa 7: Aguarda os serviços subirem antes de rodar os testes
       - name: Wait for containers to be ready
@@ -51,7 +51,7 @@ jobs:
 
       # Etapa 8: Rodar os testes dentro do container Docker
       - name: Run tests in Docker container
-        run: docker-compose run --rm forca-client npm test  
+        run: docker-compose run --rm frontend npm test  
 
       # Etapa 9: Mostra logs dos containers (se falhar)
       - name: Show logs in case of failure
