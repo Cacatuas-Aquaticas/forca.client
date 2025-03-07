@@ -75,6 +75,7 @@
 }
 
 .continue {
+  display: block;
   padding: 1rem 2rem;
   border-radius: 5px;
   width: 100%;
@@ -83,4 +84,5 @@
   font-size: 1rem;
   margin-top: 2.5rem;
   cursor: pointer;
+  text-decoration: none;
 }

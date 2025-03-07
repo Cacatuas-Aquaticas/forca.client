@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import usePlayContext from "../../hooks/usePlayContext"
 import styles from './EndgameModal.module.css'
+import { Link } from "react-router-dom"
 
 const EndgameModal = () => {
   const { guessedWord, lostGame, word, pressedKeys } = usePlayContext()
@@ -27,10 +28,10 @@ const EndgameModal = () => {
           ))}
         </div>
 
-        <button
+        <Link
           className={styles.continue}
-          onClick={() => setShowModal(false)}
-        >Continuar</button>
+          to="/calendar"
+        >Continuar</Link>
       </div>
     </div>
   ) : <></>
