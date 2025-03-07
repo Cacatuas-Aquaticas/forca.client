@@ -51,7 +51,7 @@ jobs:
 
       # Etapa 8: Rodar os testes dentro do container Docker
       - name: Run tests in Docker container
-        run: docker-compose run --rm frontend npm test  
+        run: docker-compose run --rm test 
 
       # Etapa 9: Mostra logs dos containers (se falhar)
       - name: Show logs in case of failure
