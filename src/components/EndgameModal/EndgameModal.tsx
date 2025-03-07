@@ -31,7 +31,12 @@ const EndgameModal = () => {
         <Link
           className={styles.continue}
           to="/calendar"
-        >Continuar</Link>
+        >Mais jogos</Link>
+
+        <button
+          className={`${styles.continue} ${styles.secondary}`}
+          onClick={() => setShowModal(false)}
+        >Continuar</button>
       </div>
     </div>
   ) : <></>

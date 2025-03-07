@@ -7,7 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate('/calendar');
+    navigate('/daily');
   }, [navigate]);
 
   return null;
