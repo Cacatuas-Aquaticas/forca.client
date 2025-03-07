@@ -21,7 +21,7 @@
   height: 220px;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .hangman {
     margin-top: 1vh;
   }
