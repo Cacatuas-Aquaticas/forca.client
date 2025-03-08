@@ -43,7 +43,7 @@ jobs:
       - name: Pull and Build Docker containers
         run: |
           docker-compose pull  
-          docker-compose up -d  
+          docker-compose up --build -d  
 
       # Etapa 7: Aguarda os serviços subirem antes de rodar os testes
       - name: Wait for containers to be ready
