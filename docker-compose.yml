@@ -5,7 +5,7 @@ services:
     build: .
     container_name: forca-client
     ports:
-      - "3000:80"
+      - "3001:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     restart: always
@@ -15,6 +15,21 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 30s
       retries: 3
+
+  test:
+    image: node:22  # Usando a imagem Node.js para os testes
+    container_name: forca-client-test
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: ["sh", "-c", "npm install && npm run test"]  # Rodar o npm install e depois os testes
+    networks:
+      - app-network
+    depends_on:
+      frontend:
+        condition: service_healthy 
+    restart: "no"  # Não reiniciar o contêiner após os testes
 
 networks:
   app-network:
