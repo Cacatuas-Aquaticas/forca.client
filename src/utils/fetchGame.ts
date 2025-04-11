@@ -4,7 +4,7 @@ const fetchGame = async (date: string): Promise<string> => {
   if (savedData.word) return savedData.word;
 
   // Request API here
-  const response = await fetch(`http://localhost:3000/api/game/${date}`);
+  const response = await fetch(`/api/game/${date}`);
   const data = await response.json();
   return data.word.toUpperCase();
 };
