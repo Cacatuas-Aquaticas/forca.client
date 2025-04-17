@@ -10,7 +10,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     restart: always
     networks:
-      - app-network
+      - forca-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 30s
@@ -25,12 +25,12 @@ services:
       - /app/node_modules
     command: ["sh", "-c", "npm install && npm run test"]  
     networks:
-      - app-network
+      - forca-network
     depends_on:
       frontend:
         condition: service_healthy 
     restart: "always" 
 
 networks:
-  app-network:
-    driver: bridge
+  forca-network:
+    external: true
