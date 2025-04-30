@@ -13,47 +13,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Etapa 1: Verifica o código do repositório
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Etapa 2: Configura Node.js (Garante que o ambiente tenha Node)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 22
           cache: 'npm'
 
-      # Etapa 3: Instala as dependências
       - name: Install dependencies
         run: npm install
 
-      # Etapa 4: Instala Docker e Docker Compose
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      # Etapa 5: Instala Docker Compose (se necessário)
       - name: Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
 
-      # Etapa 6: Puxa as imagens e constrói os containers
       - name: Pull and Build Docker containers
         run: |
           docker-compose pull  
           docker-compose up --build -d  
 
-      # Etapa 7: Aguarda os serviços subirem antes de rodar os testes
       - name: Wait for containers to be ready
         run: sleep 15  
 
-      # Etapa 8: Rodar os testes dentro do container Docker
       - name: Run tests in Docker container
         run: docker-compose run --rm test 
 
-      # Etapa 9: Mostra logs dos containers (se falhar)
-      - name: Show logs in case of failure
+      - name: Show logs in case of failures
         if: failure()
         run: docker-compose logs
