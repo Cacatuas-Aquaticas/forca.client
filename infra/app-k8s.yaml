@@ -107,15 +107,15 @@ spec:
             - containerPort: 3000
           env:
             - name: PORT
-              value: 3000
+              value: "3000"
             - name: DB_HOST
-              value: db
+              value: "db"
             - name: DB_USER
-              value: root
+              value: "root"
             - name: DB_PASS
-              value: root
+              value: "root"
             - name: DB_NAME
-              value: forca
+              value: "forca"
             - name: JWT_SECRET
               value: chaveapiforca
             - name: OPENAI_API_KEY
@@ -128,12 +128,12 @@ metadata:
   name: backend
   namespace: app-k8s
 spec:
+  type: ClusterIP
   selector:
     app: backend
   ports:
     - port: 3000
       targetPort: 3000
-  clusterIP: ClusterIP
 
 ---
 apiVersion: apps/v1
